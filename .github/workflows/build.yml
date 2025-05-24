@@ -9,8 +9,7 @@ jobs:
   build:
     uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
     with:
-      user-config: config  # `config-path` → `user-config` に変更
-      board-root: config   # ボード定義があるディレクトリ（必要に応じて）
-      shield: custom_keyboard
+      config-path: config
       board: nice_nano_v2
+      shield: custom_keyboard
     secrets: inherit
