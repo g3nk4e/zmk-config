@@ -1,4 +1,3 @@
-
 name: Build ZMK Firmware
 
 on:
@@ -15,32 +14,27 @@ jobs:
       - name: Checkout user config
         uses: actions/checkout@v3
 
-      - name: Clone ZMK
-        uses: actions/checkout@v3
-        with:
-          repository: zmkfirmware/zmk
-          path: zmk
-          submodules: true
-
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.12
+          python-version: 3.11  # ✅ 安定動作が確認されているバージョン
 
       - name: Install west and dependencies
         run: |
           pip install west
-          west init zmk
+          west init -m https://github.com/zmkfirmware/zmk.git zmk
+          cd zmk
           west update
           west zephyr-export
-          pip install -r zmk/app/requirements.txt
+          pip install -r app/requirements.txt
 
       - name: Build firmware
         run: |
-          west build -s zmk/app -d build/custom_keyboard -b nice_nano_v2 -- -DSHIELD=custom_keyboard
+          cd zmk
+          west build -s app -d build/custom_keyboard -b nice_nano_v2 -- -DSHIELD=custom_keyboard
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: build/custom_keyboard/zephyr/zmk.uf2
+          path: zmk/build/custom_keyboard/zephyr/zmk.uf2
