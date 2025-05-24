@@ -1,3 +1,4 @@
+
 name: Build ZMK Firmware
 
 on:
@@ -26,7 +27,7 @@ jobs:
         with:
           python-version: 3.10
 
-      - name: Install west
+      - name: Install west and dependencies
         run: |
           pip install west
           west init -l config
@@ -34,12 +35,12 @@ jobs:
           west zephyr-export
           pip install -r zmk/app/requirements.txt
 
-      - name: Build (left)
+      - name: Build firmware
         run: |
           west build -s zmk/app -d build/custom_keyboard -b nice_nano_v2 -- -DSHIELD=custom_keyboard
 
       - name: Upload firmware
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: firmware
           path: build/custom_keyboard/zephyr/zmk.uf2
