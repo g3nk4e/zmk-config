@@ -11,6 +11,7 @@ jobs:
     with:
       config-path: config
     secrets: inherit
+    # 👇 これが正しい位置
     env:
       SHIELD: custom_keyboard
       BOARD: nice_nano_v2
