@@ -40,7 +40,7 @@ jobs:
           west build -s zmk/app -d build/custom_keyboard -b nice_nano_v2 -- -DSHIELD=custom_keyboard
 
       - name: Upload firmware
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: firmware
           path: build/custom_keyboard/zephyr/zmk.uf2
