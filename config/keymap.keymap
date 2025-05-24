@@ -1,0 +1,16 @@
+/ {
+    keymap {
+        compatible = "zmk,keymap";
+
+        default_layer {
+            bindings = <
+                KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO
+                KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO
+                KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO
+                KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO
+                KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO
+                KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO KC_NO
+            >;
+        };
+    };
+};

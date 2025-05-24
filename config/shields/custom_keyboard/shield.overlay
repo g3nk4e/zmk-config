@@ -1,0 +1,22 @@
+/ {
+    // 行・列のマトリクス設定
+    kbd {
+        compatible = "zmk,keyboard-matrix";
+        diode-direction = COL2ROW;
+
+        row-gpios = <&gpio1 4 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 8 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 7 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 6 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 2 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 3 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+
+        col-gpios = <&gpio0 13 (GPIO_PULL_DOWN | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 14 (GPIO_PULL_DOWN | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 15 (GPIO_PULL_DOWN | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 16 (GPIO_PULL_DOWN | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 17 (GPIO_PULL_DOWN | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 20 (GPIO_PULL_DOWN | GPIO_ACTIVE_LOW)>,
+                    <&gpio0 19 (GPIO_PULL_DOWN | GPIO_ACTIVE_LOW)>;
+    };
+};
