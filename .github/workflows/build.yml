@@ -2,8 +2,8 @@ name: Build ZMK Firmware
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  pull_request:
   workflow_dispatch:
 
 jobs:
@@ -17,24 +17,31 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.12  # ✅ 安定動作が確認されているバージョン
+          python-version: "3.12"
 
-      - name: Install west and dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ninja-build gperf ccache dfu-util device-tree-compiler wget \
+              python3-dev python3-pip python3-setuptools python3-wheel xz-utils file make \
+              gcc gcc-multilib g++-multilib libsdl2-dev libmagic1
+
+      - name: Install west and Python deps
         run: |
           pip install west
-          west init -m https://github.com/zmkfirmware/zmk.git zmk
-          cd zmk
+          west init -m https://github.com/zmkfirmware/zmk.git
           west update
           west zephyr-export
-          pip install -r app/requirements.txt
+          pip install -r zmk/app/requirements.txt
 
-      - name: Build firmware
+      - name: Build firmware (nice!nano v2)
         run: |
-          cd zmk
-          west build -s app -d build/custom_keyboard -b nice_nano_v2 -- -DSHIELD=custom_keyboard
+          west build -s zmk/app -d build/nicenano_v2 -b nice_nano_v2 \
+            -- -DSHIELD=custom_keyboard -DZMK_CONFIG=${{ github.workspace }}/config
 
-      - name: Upload firmware
+      - name: Upload firmware artifact
         uses: actions/upload-artifact@v4
         with:
-          name: firmware
-          path: zmk/build/custom_keyboard/zephyr/zmk.uf2
+          name: zmk-firmware
+          path: build/nicenano_v2/zephyr/zmk.uf2
+
