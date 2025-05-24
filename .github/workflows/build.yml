@@ -44,5 +44,9 @@ jobs:
             -- -DSHIELD=custom_keyboard -DZMK_CONFIG=${{ github.workspace }}/config
 
       - name: Upload firmware artifact
-        uses: actions/upload-artifac
+        uses: actions/upload-artifact@v4
+        with:
+          name: zmk-firmware
+          path: build/nicenano_v2/zephyr/zmk.uf2
+
 
